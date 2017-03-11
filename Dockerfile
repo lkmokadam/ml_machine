@@ -1,4 +1,4 @@
-FROM bvlc/caffe:gpu
+FROM nvidia/caffe
 
 
 RUN mkdir -p /usr/src/app 
