@@ -1,37 +1,10 @@
-FROM nvidia/caffe
+FROM nvidia/cuda:8.0-devel-ubuntu16.04
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        cuda-samples-$CUDA_PKG_VERSION && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /usr/src/app 
-WORKDIR /usr/src/app 
+WORKDIR /usr/local/cuda/samples/0_Simple/vectorAdd
+RUN make
 
-# Various Python and C/build deps
-RUN apt-get update && apt-get install -y \ 
-    wget \
-    build-essential \ 
-    cmake \ 
-    git \
-    unzip \ 
-    pkg-config \
-    python-dev \ 
-    python-opencv \ 
-    libopencv-dev \ 
-    libav-tools  \ 
-    libjpeg-dev \ 
-    libpng-dev \ 
-    libtiff-dev \ 
-    libjasper-dev \ 
-    libgtk2.0-dev \ 
-    python-numpy \ 
-    python-pycurl \ 
-    libatlas-base-dev \
-    gfortran \
-    webp \ 
-    python-opencv \ 
-    qt5-default \
-    libvtk6-dev \ 
-    zlib1g-dev \
-	python-pip
-
-
-RUN pip install matplotlib
-
+CMD ./vectorAdd
